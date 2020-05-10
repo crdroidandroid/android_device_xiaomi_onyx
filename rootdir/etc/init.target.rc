@@ -366,8 +366,6 @@ on post-fs-data
     restorecon /sys/module/metis/parameters/speed_touch_enable
     chown root system /sys/module/metis/parameters/speed_touch_enable
 
-    mkdir /vendor/data/tombstones 0771 system system
-
     # add wlan log output path
     mkdir /data/vendor/wlan_logs 0777 root shell
     # use nv mac

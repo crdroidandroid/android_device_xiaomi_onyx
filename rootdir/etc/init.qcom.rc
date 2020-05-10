@@ -312,7 +312,6 @@ on post-fs-data
     mkdir /data/vendor/memory/error_history 0777 system system
 
     #Create directory for tftp
-    mkdir /data/vendor/tombstones 0771 system system
     mkdir /data/vendor/tombstones/rfs 0771 system system
 
     mkdir /data/vendor/ramdump 0777 root system
