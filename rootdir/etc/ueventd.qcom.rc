@@ -258,6 +258,9 @@ subsystem mem_buf_vm
 /dev/bus/usb/003/005      0660   system     system
 /dev/hidraw*              0660   system     system
 
+#rawdump
+/dev/block/platform/soc/*/by-name/rawdump       0660   root     system
+
 # wlan
 /dev/wcnss_wlan           0660   system     system
 /dev/wcnss_ctrl           0660   system     system
