@@ -286,3 +286,6 @@ include packages/apps/NotGameTurbo/BoardConfig.mk
 
 # Vendor
 include vendor/xiaomi/onyx/BoardConfigVendor.mk
+
+# Vendor MiuiCamera
+-include device/xiaomi/onyx-miuicamera/BoardConfig.mk
