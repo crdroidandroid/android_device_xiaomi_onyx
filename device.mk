@@ -311,6 +311,9 @@ PRODUCT_PACKAGES += \
     WifiOverlayOnyx \
     WifiOverlayOnyxCN
 
+PRODUCT_PACKAGES += \
+    NcmTetheringOverlay
+
 # Partitions
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
