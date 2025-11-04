@@ -1,0 +1,2 @@
+# Allow camera HAL to access miev device
+allow hal_camera_default miev_device:chr_file { write open read ioctl getattr setattr };
