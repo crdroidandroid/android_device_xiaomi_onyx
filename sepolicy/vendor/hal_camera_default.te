@@ -1,2 +1,8 @@
 # Allow camera HAL to access miev device
 allow hal_camera_default miev_device:chr_file { write open read ioctl getattr setattr };
+
+# Allow hal_camera_default to access /proc/meminfo and /proc/pressure/
+allow hal_camera_default proc_meminfo:file { open read };
+allow hal_camera_default proc_pressure_cpu:file { open read };
+allow hal_camera_default proc_pressure_mem:file { open read };
+allow hal_camera_default proc_pressure_io:file { open read };
