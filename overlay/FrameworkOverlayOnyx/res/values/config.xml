@@ -890,4 +890,7 @@
 
     <!-- Whether the device supports Smart Pixels -->
     <bool name="config_supportSmartPixels">true</bool>
+
+    <!-- Bytes that the PinnerService will pin for Home app -->
+    <integer name="config_pinnerHomePinBytes">6291456</integer>
 </resources>
