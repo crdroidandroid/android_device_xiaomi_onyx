@@ -696,6 +696,14 @@ on property:sys.boot_completed=1
     # Set thermal mode to tgame
     write /sys/devices/virtual/thermal/thermal_message/sconfig 19
 
+on property:vendor.post_boot.parsed=1
+    # update cpus for cpuset cgroup
+    write /dev/cpuset/top-app/cpus 0-7
+    write /dev/cpuset/foreground/cpus 0-6
+    write /dev/cpuset/background/cpus 0-2
+    write /dev/cpuset/system-background/cpus 0-1
+    write /dev/cpuset/restricted/cpus 0-3
+
 #for cts-on-gsi test
 on boot && property:ro.product.system.manufacturer=Android
     setprop debug.sf.set_idle_timer_ms 0
