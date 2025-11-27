@@ -2,3 +2,5 @@
 get_prop(system_app, vendor_aware_available_prop);
 
 allow system_app proc_htsr:file { read write open getattr };
+r_dir_file(system_app, vendor_sysfs_battery_supply)
+

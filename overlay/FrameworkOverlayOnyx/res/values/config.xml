@@ -877,6 +877,7 @@
     <!-- Default value for fp screen off unlock toggle, it only works for the devices that support
          fp screen off unlock-->
     <bool name="config_screen_off_udfps_default_on">true</bool>
+<<<<<<< HEAD
 
     <!-- Whether the new Auto Selection Network UI should be shown -->
     <bool name="config_enableNewAutoSelectNetworkUI">true</bool>
@@ -903,6 +904,8 @@
 
     <!-- System Info -->
     <integer name="config_sysCPUTempMultiplier">1000</integer>
+=======
+>>>>>>> d3e5c35 (onyx: Define OEM fast charge sysfs node)
 
     <!-- GPU temperature path -->
     <string name="config_gpu_temp_path">/sys/class/kgsl/kgsl-3d0/temp</string>
@@ -913,4 +916,22 @@
     <!-- Adjust dividers if needed (usually 1000 for millidegrees, 10 for decidegrees) -->
     <integer name="config_cpu_temp_divider">1000</integer>
 
+    <!-- If not zero, limits the internal screen recorder's framerate to the set value. -->
+    <integer name="config_screenRecorderMaxFramerate">120</integer>
+
+    <!-- Whether the new Auto Selection Network UI should be shown -->
+    <bool name="config_enableNewAutoSelectNetworkUI">true</bool>
+
+    <!-- Whether or not wcg mode should be enabled on this device -->
+    <bool name="config_enableWcgMode">true</bool>
+
+    <!-- Control whether the pickup gesture is enabled by default. This value will be used
+     during initialization when the setting is still null. -->
+    <bool name="config_dozePickupGestureEnabled">false</bool>
+
+    <!-- True if the device supports Sustained Performance Mode -->
+    <bool name="config_sustainedPerformanceModeSupported">true</bool>
+
+    <!-- Path to fast charging status file to detect whether an oem fast charger is active -->
+    <string name="config_oemFastChargerStatusPath" translatable="false">/sys/class/power_supply/bms/fastcharge_mode</string>
 </resources>
