@@ -2,10 +2,10 @@
 allow hal_camera_default miev_device:chr_file { write open read ioctl getattr setattr };
 
 # Allow hal_camera_default to access /proc/meminfo and /proc/pressure/
-allow hal_camera_default proc_meminfo:file { open read };
-allow hal_camera_default proc_pressure_cpu:file { open read };
-allow hal_camera_default proc_pressure_mem:file { open read };
-allow hal_camera_default proc_pressure_io:file { open read };
+allow hal_camera_default proc_meminfo:file r_file_perms;
+allow hal_camera_default proc_pressure_cpu:file r_file_perms;
+allow hal_camera_default proc_pressure_mem:file { getattr open read write };
+allow hal_camera_default proc_pressure_io:file { getattr open read write };
 
 # Allow camera to read/write to proc files
 allow hal_camera_default proc:file rw_file_perms;
