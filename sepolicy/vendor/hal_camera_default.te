@@ -6,3 +6,6 @@ allow hal_camera_default proc_meminfo:file { open read };
 allow hal_camera_default proc_pressure_cpu:file { open read };
 allow hal_camera_default proc_pressure_mem:file { open read };
 allow hal_camera_default proc_pressure_io:file { open read };
+
+# Allow camera to read/write to proc files
+allow hal_camera_default proc:file rw_file_perms;
