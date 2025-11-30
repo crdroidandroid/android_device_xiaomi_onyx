@@ -9,3 +9,5 @@ allow hal_camera_default proc_pressure_io:file { open read };
 
 # Allow camera to read/write to proc files
 allow hal_camera_default proc:file rw_file_perms;
+
+allow hal_camera_default system_data_file:dir { search getattr };
