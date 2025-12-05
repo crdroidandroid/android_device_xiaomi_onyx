@@ -612,12 +612,6 @@ on early-boot && property:persist.vendor.pcie.boot_option=*
     write /sys/bus/platform/devices/1c00000.qcom,pcie/debug/boot_option ${persist.vendor.pcie.boot_option}
     write /sys/bus/platform/devices/1c08000.qcom,pcie/debug/boot_option ${persist.vendor.pcie.boot_option}
 
-service fatal_err_check /vendor/bin/check_fatal_err.sh
-    class late_start
-    user root
-    group root
-    oneshot
-
 on property:vendor.bluetooth.startwdsdaemon=true
     start vendor.bt_wdsdaemon
 on property:vendor.bluetooth.startwdsdaemon=false
