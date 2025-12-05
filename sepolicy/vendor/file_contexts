@@ -100,6 +100,11 @@
 # MliPay
 /(odm|vendor/odm|system/vendor)/bin/mlipayd u:object_r:hal_mlipay_default_exec:s0
 
+# Partition Mountpoints
+/bt_firmware(/.*)?                                      u:object_r:bt_firmware_file:s0
+/dsp(/.*)?                                              u:object_r:adsprpcd_file:s0
+/firmware(/.*)?                                         u:object_r:vendor_firmware_file:s0
+
 # QRTR
 /(vendor|system/vendor)/bin/qrtr-lookup u:object_r:vendor_qrtr_exec:s0
 
