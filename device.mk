@@ -209,6 +209,7 @@ PRODUCT_PACKAGES += \
     ueventd.qcom.rc
 
 PRODUCT_PACKAGES += \
+    init.mi_perf.rc \
     init.qcom.factory.rc \
     init.qcom.rc \
     init.recovery.qcom.rc \
