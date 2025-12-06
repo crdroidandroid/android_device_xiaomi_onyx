@@ -1,1 +1,4 @@
 allow tee boot_block_device:blk_file { read open };
+allow tee vendor_gpt_block_device:blk_file { read open };
+allow tee vendor_xbl_block_device:blk_file { read open };
+
