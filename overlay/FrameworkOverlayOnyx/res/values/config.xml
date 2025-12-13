@@ -890,4 +890,7 @@
 
     <!-- Bytes that the PinnerService will pin for WebView -->
     <integer name="config_pinnerWebviewPinBytes">20971520</integer>
+
+    <!-- True if the device supports Sustained Performance Mode -->
+    <bool name="config_sustainedPerformanceModeSupported">true</bool>
 </resources>
