@@ -1,6 +1,9 @@
 # Audio
 system_vendor_config_prop(vendor_audio_cloud_ctrl_mi_prop)
 
+# Aware
+vendor_restricted_prop(vendor_aware_available_prop);
+
 # Camera
 vendor_public_prop(vendor_camera_p3enable_prop)
 vendor_public_prop(vendor_camera_sensor_prop)

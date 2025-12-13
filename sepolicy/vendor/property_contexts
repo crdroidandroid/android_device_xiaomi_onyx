@@ -2,6 +2,9 @@
 persist.vendor.audio.cloud u:object_r:vendor_audio_cloud_ctrl_mi_prop:s0
 persist.vendor.audio.pa.smartpa_type u:object_r:vendor_audio_prop:s0
 
+# Aware
+ro.vendor.aware_available u:object_r:vendor_aware_available_prop:s0
+
 # Camera
 persist.vendor.EnableP3ColorSpace u:object_r:vendor_camera_p3enable_prop:s0
 persist.vendor.XDRVersion u:object_r:vendor_camera_xdrversion_prop:s0
