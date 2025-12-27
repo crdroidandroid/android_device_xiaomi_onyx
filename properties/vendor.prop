@@ -49,6 +49,7 @@ ro.bluetooth.a2dp_offload.supported=true
 # Camera
 ro.camera.enableCamera1MaxZsl=1
 ro.camerax.extensions.enabled=true
+vendor.camera.aux.packagelist=com.android.camera,org.lineageos.aperture,org.lineageos.aperture.dev
 
 # Crypto
 ro.crypto.metadata_init_delete_all_keys.enabled=true
