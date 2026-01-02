@@ -1,0 +1,2 @@
+# Camera
+allow platform_app vendor_displayfeature_prop:file read;
