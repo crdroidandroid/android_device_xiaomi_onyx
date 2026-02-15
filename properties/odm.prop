@@ -48,9 +48,6 @@ vendor.audio.support.16bit.record=true
 # Battery secret
 persist.vendor.region.charger=default
 
-# Bluetooth
-ro.bluetooth.finder.supported=true
-
 # Camera
 ro.vendor.dynamiccamera.ability_level=2
 ro.camerax.extensions.enabled=false
