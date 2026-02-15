@@ -90,7 +90,6 @@ vendor.gatekeeper.is_security_level_spu=0
 persist.backup.ntpServer=0.pool.ntp.org
 
 # Graphics
-debug.egl.hw=0
 debug.graphics.game_default_frame_rate.disabled=1
 debug.mdpcomp.logs=0
 debug.sf.auto_latch_unsignaled=1
@@ -104,7 +103,6 @@ debug.sf.enable_egl_image_tracker=0
 debug.sf.enable_gl_backpressure=1
 debug.sf.enable_transaction_tracing=false
 debug.sf.frame_rate_multiple_threshold=120
-debug.sf.hw=0
 debug.sf.latch_unsignaled=0
 debug.sf.late.app.duration=16600000
 debug.sf.late.sf.duration=10500000
