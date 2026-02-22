@@ -105,6 +105,7 @@ vendor/lib64/libcapiv2svacnnvendor.so
 vendor/lib64/libcapiv2svarnnvendor.so
 vendor/lib64/libcapiv2udk7vendor.so
 vendor/lib64/libcapiv2uvvendor.so
+vendor/lib64/libdapparamstorage.so
 vendor/lib64/libeai_fixed.so
 vendor/lib64/libeai_float.so
 vendor/lib64/liblistensoundmodel2vendor.so
@@ -117,11 +118,14 @@ vendor/lib64/libmikaraoke.so
 vendor/lib64/libmis6.so
 vendor/lib64/libmisfpsop.so
 vendor/lib64/libmisops.so
+vendor/lib64/libmisoundfx_aidl_ext.so;SYMLINK=vendor/lib64/soundfx/libmisoundfx_aidl.so
 vendor/lib64/libmisoundsa.so
 vendor/lib64/libpal_net_if.so
 vendor/lib64/libpalclient.so
 vendor/lib64/libqasr.so
 vendor/lib64/libqtigefar.so;DISABLE_DEPS
+vendor/lib64/libspatializerparamstorage.so
+vendor/lib64/libswspatializeraidl_ext.so;DISABLE_DEPS
 vendor/lib64/libtensorflowlite_c.so:vendor/lib64/libtensorflowlite_c_vendor.so;FIX_SONAME
 vendor/lib64/libtiantongpal.so
 vendor/lib64/libvui_dmgr.so
@@ -163,6 +167,13 @@ vendor/lib64/libmisight.so
 
 # Audio soundfx
 vendor/lib64/soundfx/libquasar.so
+vendor/lib64/soundfx/libdlbvolaidl.so;DISABLE_DEPS
+vendor/lib64/soundfx/libhwdapaidl.so;DISABLE_DEPS
+vendor/lib64/soundfx/liblvacfsprocessingaidl.so;DISABLE_DEPS
+vendor/lib64/soundfx/libmiwndnsprocessingaidl.so;DISABLE_DEPS
+vendor/lib64/soundfx/libspatializeraidl.so;DISABLE_DEPS
+vendor/lib64/soundfx/libswgamedapaidl.so;DISABLE_DEPS
+vendor/lib64/soundfx/libswspatializeraidl.so;DISABLE_DEPS
 
 # Audio soundfx (Spatializer Model)
 odm/etc/audio/hrtf5c.bin
@@ -178,6 +189,7 @@ vendor/etc/vintf/manifest/bt_lmp_event-saidl.xml
 vendor/etc/vintf/manifest/bttpi-saidl.xml
 vendor/etc/vintf/manifest/manifest_btaudiocoreservices_qti.xml
 vendor/etc/vintf/manifest/vendor.qti.hardware.bluetooth.xpanprovider.xml
+vendor/lib64/android.media.audio.common.types-V6-ndk.so
 vendor/lib64/btaudio_offload_if.so
 vendor/lib64/hw/android.hardware.bluetooth.audio-impl-qti.so
 vendor/lib64/hw/android.hardware.bluetooth.audio_sw.so;DISABLE_DEPS
@@ -2481,6 +2493,38 @@ vendor/etc/display/sm8750_sr_2x_y960x544.dlc
 vendor/etc/display/sm8750_sr_3x_y384x640.dlc
 vendor/etc/display/sm8750_sr_3x_y640x384.dlc
 
+# Dolby
+odm/bin/hw/dvs-aidl-service
+odm/etc/dolby/dax-default-spatializer.xml
+odm/etc/dolby/dax-default.xml
+odm/etc/init/dvs-aidl-service.rc
+odm/etc/surfaceflinger/dolby_vision.cfg
+odm/etc/vintf/manifest/dvs-aidl-service.xml
+odm/vendor/etc/dolby_vision.cfg
+odm/vendor/persist/display/dolby_vision.cfg
+vendor/bin/hw/vendor.dolby.dms.service
+vendor/bin/hw/vendor.dolby.media.c2-default-service-dax
+vendor/etc/dolby/dax-default-spatializer.xml
+vendor/etc/dolby/dax-default.xml
+vendor/etc/init/dms-service.rc
+vendor/etc/init/vendor.dolby.media.c2-default-service-dax.rc
+vendor/etc/vintf/manifest/dms-service.xml
+vendor/etc/vintf/manifest/vendor.dolby.media.c2-default-service-dax.xml
+vendor/lib64/libcodec2_store_dolby.so
+vendor/lib64/libdlbdsservice.so
+vendor/lib64/libdlbpreg.so
+vendor/lib64/libdmshal.so
+vendor/lib64/libdolbyclstc.so
+vendor/lib64/libdolbydecoderprocessor.so
+vendor/lib64/libdolbyeglcore.so
+vendor/lib64/libdolbyencoderprocessor.so
+vendor/lib64/libdolbyottcameracontrol.so
+vendor/lib64/libdolbyproxyandroid.so
+vendor/lib64/libqcodec2_dolbydecoderfilter.so
+vendor/lib64/libqcodec2_dolbyencoderfilter.so
+vendor/lib64/vendor.dolby.dms-V1-ndk.so
+vendor/lib64/vendor.dolby.hardware.dms@2.0.so
+
 # Fingerprint
 odm/lib64/anc.hal.so
 odm/lib64/hw/fingerprint.goodix_fod.so:odm/lib64/hw/fingerprint.goodix_fod.default.so;FIX_SONAME
@@ -2662,9 +2706,11 @@ vendor/lib64/libqtikeymint.so
 vendor/lib64/libspcom.so
 
 # Media
+vendor/bin/hw/android.hardware.media.c2-mi-service
 vendor/bin/hw/vendor.qti.media.c2@1.0-service
 vendor/bin/hw/vendor.qti.media.c2audio@1.0-service
 vendor/bin/init.qti.media.sh
+vendor/etc/init/android.hardware.media.c2-mi-service.rc
 vendor/etc/init/init.qti.media.rc
 vendor/etc/init/vendor.qti.media.c2@1.0-service.rc
 vendor/etc/init/vendor.qti.media.c2audio@1.0-service.rc
@@ -2672,11 +2718,22 @@ vendor/etc/seccomp_policy/codec2.vendor.base-arm64.policy
 vendor/etc/seccomp_policy/codec2.vendor.ext-arm64.policy
 vendor/etc/vintf/manifest/c2_manifest_vendor.xml
 vendor/etc/vintf/manifest/c2_manifest_vendor_audio.xml
+vendor/etc/vintf/manifest/media_c2_mi.xml
 vendor/lib64/libAlacSwDec.so
 vendor/lib64/libApeSwDec.so
 vendor/lib64/libEvrcSwCodec.so
 vendor/lib64/libFlacSwDec.so
 vendor/lib64/libQcelp13SwCodec.so
+vendor/lib64/lib_AIVC_decoder.so
+vendor/lib64/lib_AIVC_encoder.so
+vendor/lib64/libcodec2_soft_ac4dec.so
+vendor/lib64/libcodec2_soft_aivc_dec.so
+vendor/lib64/libcodec2_soft_aivc_enc.so
+vendor/lib64/libcodec2_soft_ddpdec.so
+vendor/lib64/libcodec2_soft_mihc_dec.so
+vendor/lib64/libcodec2_soft_mihc_enc.so
+vendor/lib64/libcodec2_store_mi.so
+vendor/lib64/libdeccfg.so
 vendor/lib64/libdsd2pcm.so
 vendor/lib64/libqc2audio_base.so
 vendor/lib64/libqc2audio_basecodec.so
@@ -2701,6 +2758,13 @@ vendor/lib64/libqcodec2_utils.so
 vendor/lib64/libqcodec2_v4l2codec.so
 vendor/lib64/libvideotxr.so
 vendor/lib64/qti.video.utils.videobufferlayout.so
+
+# Media Config
+vendor/etc/media_codecs_dolby_audio.xml
+vendor/etc/media_codecs_mi_c2_audio.xml
+vendor/etc/media_codecs_performance_tuna_v0.xml
+vendor/etc/media_codecs_tuna_v0.xml
+vendor/etc/media_tuna_v0/video_system_specs.json
 
 # Mlipay
 odm/bin/mlipayd
