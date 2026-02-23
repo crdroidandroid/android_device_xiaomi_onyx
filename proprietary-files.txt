@@ -90,6 +90,7 @@ vendor/lib64/libPeripheralStateUtils.so
 vendor/lib64/libVoiceSdk.so
 vendor/lib64/lib_bt_lhdc.so
 vendor/lib64/lib_bt_mihc.so
+vendor/lib64/lib_lvacfs.so
 vendor/lib64/libadm.so
 vendor/lib64/libar-acdb.so
 vendor/lib64/libar-gpr.so
