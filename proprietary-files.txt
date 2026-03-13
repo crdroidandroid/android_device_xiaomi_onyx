@@ -1,4 +1,4 @@
-# All unpinned blobs below are extracted from onyx OS3.0.5.0.WOLMIXM
+# All unpinned blobs below are extracted from onyx OS3.0.6.0.WOLMIXM
 
 # ACDB
 odm/etc/acdbdata/Fluence/Fluence_acdb_cal.acdb
@@ -2713,12 +2713,6 @@ vendor/lib64/libkeymasterutils.so
 vendor/lib64/libqtikeymaster4.so
 vendor/lib64/libqtikeymint.so
 vendor/lib64/libspcom.so
-
-# Micharge
-vendor/bin/hw/vendor.xiaomi.hardware.micharge-service
-vendor/etc/init/vendor.xiaomi.hardware.micharge-service.rc
-vendor/etc/vintf/manifest/vendor.xiaomi.hardware.micharge.xml
-vendor/lib64/vendor.xiaomi.hardware.micharge-V2-ndk.so
 
 # Media
 vendor/bin/hw/android.hardware.media.c2-mi-service

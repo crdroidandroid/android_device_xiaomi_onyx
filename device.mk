@@ -199,6 +199,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     xiaomi.system.hypsys.common-service-dummy
 
+# Micharge
+PRODUCT_PACKAGES += \
+    vendor.xiaomi.hardware.micharge-service-dummy
+
 # Health
 PRODUCT_PACKAGES += \
     android.hardware.health-service.qti \
