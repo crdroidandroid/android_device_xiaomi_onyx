@@ -790,3 +790,7 @@ service vendor.audio-hal-aidl /vendor/bin/hw/audiohalservice.qti
     writepid /dev/cpuset/foreground/tasks /dev/stune/foreground/tasks
     socket audio_us_socket_0 seqpacket 0666 system system
     onrestart restart audioserver
+
+
+     # Only owner can acces this node
+    chmod 440 /proc/net/unix
