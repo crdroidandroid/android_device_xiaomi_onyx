@@ -22,6 +22,15 @@ $(call inherit-product, packages/modules/Virtualization/apex/product_packages.mk
 $(call soong_config_set,rfs,mpss_firmware_symlink_target,modem_firmware)
 $(call inherit-product, hardware/qcom-caf/common/common.mk)
 
+
+# Inherit Google Camera
+$(call inherit-product-if-exists, vendor/xiaomi/GoogleCamera/config.mk) 
+
+
+# BCR
+$(call inherit-product, vendor/bcr/bcr.mk)
+
+
 # A/B
 AB_OTA_POSTINSTALL_CONFIG += \
     RUN_POSTINSTALL_system=true \
