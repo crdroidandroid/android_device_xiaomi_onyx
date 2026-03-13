@@ -916,19 +916,12 @@
     <!-- If not zero, limits the internal screen recorder's framerate to the set value. -->
     <integer name="config_screenRecorderMaxFramerate">120</integer>
 
-    <!-- Whether the new Auto Selection Network UI should be shown -->
-    <bool name="config_enableNewAutoSelectNetworkUI">true</bool>
-
-    <!-- Whether or not wcg mode should be enabled on this device -->
-    <bool name="config_enableWcgMode">true</bool>
 
     <!-- Control whether the pickup gesture is enabled by default. This value will be used
      during initialization when the setting is still null. -->
     <bool name="config_dozePickupGestureEnabled">false</bool>
 
-    <!-- True if the device supports Sustained Performance Mode -->
-    <bool name="config_sustainedPerformanceModeSupported">true</bool>
-
+   
     <!-- Path to fast charging status file to detect whether an oem fast charger is active -->
     <string name="config_oemFastChargerStatusPath" translatable="false">/sys/class/power_supply/bms/fastcharge_mode</string>
 
