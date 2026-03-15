@@ -320,6 +320,9 @@ vendor/etc/cne/wqeclient/VZW/VZW_profile5.xml
 vendor/etc/cne/wqeclient/VZW/VZW_profile6.xml
 vendor/etc/cne/wqeclient/VZW/VZW_profile7.xml
 
+# Camera Extension
+system_ext/framework/camerax-vendor-extensions.jar
+
 # Camera
 odm/bin/hw/misensor_camera
 odm/etc/camera/20_det_human_hair_wide2_1222_iter_40000_quant_npu.minn

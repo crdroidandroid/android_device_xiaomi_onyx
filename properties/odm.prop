@@ -53,7 +53,7 @@ ro.bluetooth.finder.supported=true
 
 # Camera
 ro.vendor.dynamiccamera.ability_level=2
-ro.camerax.extensions.enabled=false
+ro.camerax.extensions.enabled=true
 ro.camera.disableJpegR=true
 ro.camera.disableHeicUltraHDR=true
 
