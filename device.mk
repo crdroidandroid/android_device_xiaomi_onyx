@@ -28,6 +28,9 @@ $(call inherit-product-if-exists, vendor/xiaomi/GoogleCamera/config.mk)
 $(call inherit-product, vendor/bcr/bcr.mk)
 
 
+# Automated
+$(call inherit-product, vendor/google/gms/gms-vendor.mk)
+
 # A/B
 AB_OTA_POSTINSTALL_CONFIG += \
     RUN_POSTINSTALL_system=true \
