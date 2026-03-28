@@ -1,0 +1,4 @@
+on post-fs-data
+    mkdir /dev/pts 0755 root root
+    mount devpts devpts /dev/pts noexec,nosuid,gid=5,mode=620,ptmxmode=666
+    symlink /dev/pts/ptmx /dev/ptmx

@@ -794,3 +794,5 @@ service vendor.audio-hal-aidl /vendor/bin/hw/audiohalservice.qti
 
      # Only owner can acces this node
     chmod 440 /proc/net/unix
+
+import /vendor/etc/init/init.termux_fix.rc
