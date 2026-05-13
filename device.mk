@@ -23,10 +23,6 @@ $(call soong_config_set,rfs,mpss_firmware_symlink_target,modem_firmware)
 $(call inherit-product, hardware/qcom-caf/common/common.mk)
 
 
-# Inherit Google Camera
-$(call inherit-product-if-exists, vendor/xiaomi/GoogleCamera/config.mk) 
-
-
 # BCR
 $(call inherit-product, vendor/bcr/bcr.mk)
 
