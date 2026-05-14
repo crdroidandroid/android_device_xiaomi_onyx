@@ -1,0 +1,19 @@
+[
+  {
+    "repository": "crdroidandroid/android_hardware_xiaomi",
+    "target_path": "hardware/xiaomi"
+  },
+  {
+    "repository": "crdroidandroid/android_kernel_xiaomi_onyx",
+    "target_path": "device/xiaomi/onyx-kernel"
+  },
+  {
+    "repository": "crdroidandroid/proprietary_vendor_xiaomi_onyx",
+    "target_path": "vendor/xiaomi/onyx",
+    "remote": "crdroid-gitlab"
+  },
+  {
+    "repository": "crdroidandroid/android_vendor_bcr",
+    "target_path": "vendor/bcr"
+  }
+]
