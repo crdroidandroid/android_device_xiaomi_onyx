@@ -13,6 +13,10 @@
     "remote": "crdroid-gitlab"
   },
   {
+    "repository": "crdroidandroid/android_packages_apps_LunarisDolby",
+    "target_path": "packages/apps/LunarisDolby"
+  },
+  {
     "repository": "crdroidandroid/android_vendor_bcr",
     "target_path": "vendor/bcr"
   }

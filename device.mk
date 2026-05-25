@@ -158,7 +158,8 @@ PRODUCT_PACKAGES += \
 
 # Dolby
 PRODUCT_PACKAGES += \
-    DolbyAtmos
+    LunarisDolby
+
 # Fastbootd
 PRODUCT_PACKAGES += \
     fastbootd
