@@ -21,7 +21,7 @@
     "remote": "crdroid-gitlab"
   },
   {
-    "repository": "crdroidandroid/proprietary_vendor_xiaomi_miuicamera",
+   "repository": "crdroidandroid/proprietary_vendor_xiaomi_miuicamera",
     "target_path": "vendor/xiaomi/onyx-miuicamera",
     "branch": "16.0-onyx",
     "remote": "crdroid-gitlab"
