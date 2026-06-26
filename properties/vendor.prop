@@ -57,10 +57,6 @@ ro.crypto.metadata_init_delete_all_keys.enabled=true
 vendor.wv.oemcrypto.debug.enable_external_display_check=false
 vendor.wv.oemcrypto.debug.enable_hlos_data_path=true
 
-# Device
-ro.product.marketname=POCO F7
-ro.product.mod_device=onyx_global
-
 # Displayfeature
 ro.vendor.displayfeature.dump=true
 

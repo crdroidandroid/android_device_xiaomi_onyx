@@ -287,6 +287,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.memtrack-service
 
+# Micharge
+PRODUCT_PACKAGES += \
+    vendor.xiaomi.hardware.micharge-service-dummy
+
 # Network
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.ipsec_tunnels.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.ipsec_tunnels.xml
@@ -365,6 +369,10 @@ PRODUCT_PACKAGES += \
 
 # Reduce system server verbosity.
 PRODUCT_SYSTEM_SERVER_DEBUG_INFO := false
+
+# Parts
+PRODUCT_PACKAGES += \
+    XiaomiParts
 
 # Sensors
 PRODUCT_PACKAGES += \

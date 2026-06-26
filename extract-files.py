@@ -5,6 +5,8 @@
 #
 
 from extract_utils.fixups_blob import (
+    BlobFixupCtx,
+    File,
     blob_fixup,
     blob_fixups_user_type,
 )
@@ -16,6 +18,12 @@ from extract_utils.fixups_lib import (
 from extract_utils.main import (
     ExtractUtils,
     ExtractUtilsModule,
+)
+from extract_utils.tools import (
+    llvm_objdump_path,
+)
+from extract_utils.utils import (
+    run_cmd,
 )
 
 namespace_imports = [
@@ -58,23 +66,173 @@ lib_fixups: lib_fixups_user_type = {
 }
 
 
+def blob_fixup_graphic_buffer_size(
+    ctx: BlobFixupCtx,
+    file: File,
+    file_path: str,
+    disassemble_symbols: [str],
+    *args,
+    **kwargs,
+):
+    for line in run_cmd(
+        [
+            llvm_objdump_path,
+            f'--disassemble-symbols={",".join(disassemble_symbols)}',
+            file_path,
+        ]
+    ).splitlines():
+        line = line.split(maxsplit=5)
+        if len(line) != 6:
+            continue
+
+        # The size of GraphicBuffer changed from 0x100 to 0xd30
+        offset, _, instruction, register, value, _ = line
+        if instruction == 'mov' and register[:-1] == 'w0' and value == '#0x100':
+            with open(file_path, 'rb+') as f:
+                f.seek(int(offset[:-1], 16))
+                f.write(b'\x00\xa6\x81\x52')  # AArch64 mov w0, #0xd30
+
+
 blob_fixups: blob_fixups_user_type = {
-    'system_ext/etc/vintf/manifest/vendor.qti.qesdsys.service.xml': blob_fixup()
-        .regex_replace(r'(?s)^.*?(?=<manifest)', ''),
+    (
+        'odm/bin/hw/vendor.xiaomi.hw.touchfeature-service',
+        'odm/lib64/libadaptivehdr.so',
+        'odm/lib64/libcolortempmode.so',
+        'odm/lib64/libdither.so',
+        'odm/lib64/libflatmode.so',
+        'odm/lib64/libhistprocess.so',
+        'odm/lib64/libmiBrightness.so',
+        'odm/lib64/libmiSensorCtrl.so',
+        'odm/lib64/libpaperMode.so',
+        'odm/lib64/librhytheyecare.so',
+        'odm/lib64/libsdr2hdr.so',
+        'odm/lib64/libsre.so',
+        'odm/lib64/libtruetone.so',
+        'odm/lib64/libvideomode.so',
+        'vendor/lib64/hw/camera.qcom.so',
+        'vendor/lib64/libgnss.so'
+    ): blob_fixup()
+        .replace_needed(
+            'android.hardware.sensors-V2-ndk.so',
+            'android.hardware.sensors-V3-ndk.so'
+    ),
 
-    'system_ext/lib64/libwfdmmsrc_system.so': blob_fixup()
-        .add_needed('libgui_shim.so'),
-
-    'system_ext/lib64/libwfdnative.so': blob_fixup()
-        .add_needed('libbinder_shim.so')
-        .add_needed('libinput_shim.so')
-        .remove_needed('android.hidl.base@1.0.so'),
+    'odm/bin/hw/vendor.xiaomi.sensor.citsensorservice.aidl': blob_fixup()
+        .replace_needed(
+            'android.hardware.graphics.common-V5-ndk.so',
+            'android.hardware.graphics.common-V7-ndk.so'
+        )
+        .replace_needed(
+            'android.hardware.sensors-V2-ndk.so',
+            'android.hardware.sensors-V3-ndk.so'
+        )
+        .replace_needed(
+            'libtinyxml2.so',
+            'libtinyxml2-v34.so'
+    ),
 
     (
         'odm/etc/camera/enhance_motiontuning.xml',
         'odm/etc/camera/motiontuning.xml'
     ): blob_fixup()
         .regex_replace('xml=version', 'xml version'),
+
+    'odm/lib64/camera/components/com.mi.node.tsskinbeautifier.so': blob_fixup()
+        .call(
+            blob_fixup_graphic_buffer_size,
+            [
+                'ChiNodeEntry',
+            ],
+        ),
+
+    (
+        'odm/lib64/camera/plugins/com.xiaomi.plugin.anchor.so',
+        'odm/lib64/camera/plugins/com.xiaomi.plugin.offlineawbideal.so',
+        'odm/lib64/camera/plugins/com.xiaomi.plugin.offlineb2y.so',
+        'odm/lib64/camera/plugins/com.xiaomi.plugin.offlineformatconvertor.so',
+        'odm/lib64/camera/plugins/com.xiaomi.plugin.offlinehdrraw2y.so',
+        'odm/lib64/camera/plugins/com.xiaomi.plugin.offlineheic.so',
+        'odm/lib64/camera/plugins/com.xiaomi.plugin.offlinei2y.so',
+        'odm/lib64/camera/plugins/com.xiaomi.plugin.offlinejpeg.so',
+        'odm/lib64/camera/plugins/com.xiaomi.plugin.offlinemfnr.so',
+        'odm/lib64/camera/plugins/com.xiaomi.plugin.offlinemlawb.so',
+        'odm/lib64/camera/plugins/com.xiaomi.plugin.offlinetintless.so',
+        'odm/lib64/camera/plugins/com.xiaomi.plugin.offlinetintlesshdr.so',
+        'odm/lib64/camera/plugins/com.xiaomi.plugin.offlineyuvreprocess.so',
+        'odm/lib64/camera/plugins/com.xiaomi.plugin.offlineyuvsplit.so',
+        'odm/lib64/libmiXmlParser.so',
+        'vendor/bin/hw/vendor.qti.camera.provider-service_64',
+        'vendor/bin/hw/vendor.qti.hardware.display.composer-service',
+        'vendor/bin/poweropt-service',
+        'vendor/lib64/libaodoptfeature.so',
+        'vendor/lib64/libapengine.so',
+        'vendor/lib64/libaudiocloudctrl.so',
+        'vendor/lib64/libcamxcoreutils.so',
+        'vendor/lib64/libcamxods.so',
+        'vendor/lib64/liblearningmodule.so',
+        'vendor/lib64/libmicamera_aidl_provider.so',
+        'vendor/lib64/libpowercore.so',
+        'vendor/lib64/libpsmoptfeature.so',
+        'vendor/lib64/libsdmclient.so',
+        'vendor/lib64/libsimulation.so',
+        'vendor/lib64/libstandbyfeature.so',
+        'vendor/lib64/soundfx/libquasar.so'
+    ): blob_fixup()
+        .replace_needed(
+            'libtinyxml2.so',
+            'libtinyxml2-v34.so'
+    ),
+
+    'odm/lib64/camera/plugins/com.xiaomi.plugin.beautydeformation.so': blob_fixup()
+        .call(
+            blob_fixup_graphic_buffer_size,
+            [
+                '_ZN23BeautyDeformationPlugin13processBufferEP11ImageParamsS1_S1_NSt3__110shared_ptrI10MiMetadataEES1_S1_',
+            ],
+        ),
+
+    'odm/lib64/camera/plugins/com.xiaomi.plugin.filter.so': blob_fixup()
+        .call(
+            blob_fixup_graphic_buffer_size,
+            [
+                '_ZN12FilterPlugin14processRequestEP18ProcessRequestInfo',
+            ],
+        ),
+
+    (
+        'odm/lib64/camera/plugins/com.xiaomi.plugin.gainmap.so',
+        'odm/lib64/camera/plugins/com.xiaomi.plugin.jpegrAggr.so'
+    ): blob_fixup()
+        .replace_needed(
+            'libultrahdr.so',
+            'libultrahdr_prebuilt.so'
+    ),
+
+    'odm/lib64/camera/plugins/com.xiaomi.plugin.skinbeautifierpreview.so': blob_fixup()
+        .call(
+            blob_fixup_graphic_buffer_size,
+            [
+                '_ZN27SkinBeautifierPreviewPlugin13processBufferEP11ImageParamsS1_NSt3__110shared_ptrI10MiMetadataEEP18ProcessRequestInfo',
+            ],
+        ),
+
+    'odm/lib64/camera/plugins/com.xiaomi.plugin.tsskinbeautifier.so': blob_fixup()
+        .call(
+            blob_fixup_graphic_buffer_size,
+            [
+                '_ZN20SkinBeautifierPlugin13processBufferEP11ImageParamsS1_NSt3__110shared_ptrI10MiMetadataEES1_S1_',
+            ],
+        ),
+
+    'odm/lib64/hw/displayfeature.default.so': blob_fixup()
+        .replace_needed(
+            'android.hardware.sensors-V2-ndk.so',
+            'android.hardware.sensors-V3-ndk.so'
+        )
+        .replace_needed(
+            'libtinyxml2.so',
+            'libtinyxml2-v34.so'
+    ),
 
     (
         'odm/lib64/libAncHumanPreviewBokeh.so',
@@ -105,105 +263,25 @@ blob_fixups: blob_fixups_user_type = {
             'libaudioroute-v34.so'
     ),
 
-    (
-        'odm/bin/hw/vendor.xiaomi.hw.touchfeature-service',
-        'odm/lib64/libadaptivehdr.so',
-        'odm/lib64/libcolortempmode.so',
-        'odm/lib64/libdither.so',
-        'odm/lib64/libflatmode.so',
-        'odm/lib64/libhistprocess.so',
-        'odm/lib64/libmiBrightness.so',
-        'odm/lib64/libmiSensorCtrl.so',
-        'odm/lib64/libpaperMode.so',
-        'odm/lib64/librhytheyecare.so',
-        'odm/lib64/libsdr2hdr.so',
-        'odm/lib64/libsre.so',
-        'odm/lib64/libtruetone.so',
-        'odm/lib64/libvideomode.so',
-        'vendor/lib64/hw/camera.qcom.so',
-        'vendor/lib64/libgnss.so'
-    ): blob_fixup()
-        .replace_needed(
-            'android.hardware.sensors-V2-ndk.so',
-            'android.hardware.sensors-V3-ndk.so'
-    ),
+    'system_ext/etc/vintf/manifest/vendor.qti.qesdsys.service.xml': blob_fixup()
+        .regex_replace(r'(?s)^.*?(?=<manifest)', ''),
 
-    (
-        'odm/bin/hw/vendor.xiaomi.sensor.citsensorservice.aidl',
-        'odm/lib64/camera/plugins/com.xiaomi.plugin.anchor.so',
-        'odm/lib64/camera/plugins/com.xiaomi.plugin.offlineawbideal.so',
-        'odm/lib64/camera/plugins/com.xiaomi.plugin.offlineb2y.so',
-        'odm/lib64/camera/plugins/com.xiaomi.plugin.offlineformatconvertor.so',
-        'odm/lib64/camera/plugins/com.xiaomi.plugin.offlinehdrraw2y.so',
-        'odm/lib64/camera/plugins/com.xiaomi.plugin.offlineheic.so',
-        'odm/lib64/camera/plugins/com.xiaomi.plugin.offlinei2y.so',
-        'odm/lib64/camera/plugins/com.xiaomi.plugin.offlinejpeg.so',
-        'odm/lib64/camera/plugins/com.xiaomi.plugin.offlinemfnr.so',
-        'odm/lib64/camera/plugins/com.xiaomi.plugin.offlinemlawb.so',
-        'odm/lib64/camera/plugins/com.xiaomi.plugin.offlinetintless.so',
-        'odm/lib64/camera/plugins/com.xiaomi.plugin.offlinetintlesshdr.so',
-        'odm/lib64/camera/plugins/com.xiaomi.plugin.offlineyuvreprocess.so',
-        'odm/lib64/camera/plugins/com.xiaomi.plugin.offlineyuvsplit.so',
-        'odm/lib64/libmiXmlParser.so',
-        'vendor/bin/hw/vendor.qti.camera.provider-service_64',
-        'vendor/bin/hw/vendor.qti.hardware.display.composer-service',
-        'vendor/bin/poweropt-service',
-        'vendor/lib64/hw/libaudioeffecthal.qti.so',
-        'vendor/lib64/libaodoptfeature.so',
-        'vendor/lib64/libapengine.so',
-        'vendor/lib64/libaudiocloudctrl.so',
-        'vendor/lib64/libcamxcoreutils.so',
-        'vendor/lib64/libcamxods.so',
-        'vendor/lib64/liblearningmodule.so',
-        'vendor/lib64/libmicamera_aidl_provider.so',
-        'vendor/lib64/libmicamera_hal_core.so',
-        'vendor/lib64/libpowercore.so',
-        'vendor/lib64/libpsmoptfeature.so',
-        'vendor/lib64/libsdmclient.so',
-        'vendor/lib64/libsimulation.so',
-        'vendor/lib64/libstandbyfeature.so',
-        'vendor/lib64/soundfx/libquasar.so'
-    ): blob_fixup()
-        .replace_needed(
-            'libtinyxml2.so',
-            'libtinyxml2-v34.so'
-    ),
+    'system_ext/lib64/libwfdmmsrc_system.so': blob_fixup()
+        .add_needed('libgui_shim.so'),
 
-    (
-        'odm/lib64/camera/plugins/com.xiaomi.plugin.gainmap.so',
-        'odm/lib64/camera/plugins/com.xiaomi.plugin.jpegrAggr.so'
-    ): blob_fixup()
-        .replace_needed(
-            'libultrahdr.so',
-            'libultrahdr_prebuilt.so'
-    ),
-
-    'odm/lib64/hw/displayfeature.default.so': blob_fixup()
-        .replace_needed(
-            'android.hardware.sensors-V2-ndk.so',
-            'android.hardware.sensors-V3-ndk.so'
-        )
-        .replace_needed(
-            'libtinyxml2.so',
-            'libtinyxml2-v34.so'
-    ),
-
-    'odm/bin/hw/vendor.xiaomi.sensor.citsensorservice.aidl': blob_fixup()
-        .replace_needed(
-            'android.hardware.graphics.common-V5-ndk.so',
-            'android.hardware.graphics.common-V7-ndk.so'
-        )
-        .replace_needed(
-            'android.hardware.sensors-V2-ndk.so',
-            'android.hardware.sensors-V3-ndk.so'
-        )
-        .replace_needed(
-            'libtinyxml2.so',
-            'libtinyxml2-v34.so'
-    ),
+    'system_ext/lib64/libwfdnative.so': blob_fixup()
+        .add_needed('libbinder_shim.so')
+        .add_needed('libinput_shim.so')
+        .remove_needed('android.hidl.base@1.0.so'),
 
     'vendor/etc/sensors/hals.conf': blob_fixup()
         .regex_replace('.*vl53l8.*\n?', ''),
+
+    'vendor/lib64/android.hardware.bluetooth.audio-impl_prebuilt.so': blob_fixup()
+        .replace_needed(
+            'libbluetooth_audio_session_aidl.so',
+            'libbluetooth_audio_session_aidl_prebuilt.so'
+    ),
 
     (
         'vendor/lib64/camera/components/com.qti.node.dewarp.so',
@@ -221,6 +299,17 @@ blob_fixups: blob_fixups_user_type = {
     (
         'vendor/lib64/soundfx/liblvacfsprocessingaidl.so',
         'vendor/lib64/soundfx/libdlbvolaidl.so',
+        'vendor/lib64/hw/android.hardware.bluetooth.audio_sw.so',
+        'vendor/lib64/libaudio_aidl_conversion_common_ndk_prebuilt.so',
+        'vendor/lib64/soundfx/libdownmixaidl.so',
+        'vendor/lib64/soundfx/libdynamicsprocessingaidl.so',
+        'vendor/lib64/soundfx/libloudnessenhanceraidl.so',
+        'vendor/lib64/soundfx/libqcompostprocbundle.so',
+        'vendor/lib64/soundfx/libqcomvisualizer.so',
+        'vendor/lib64/soundfx/libqcomvoiceprocessing.so',
+        'vendor/lib64/soundfx/libreverbaidl.so',
+        'vendor/lib64/soundfx/libvisualizeraidl.so',
+        'vendor/lib64/soundfx/libvolumelistener.so'
     ): blob_fixup()
         .replace_needed(
             'android.media.audio.common.types-V4-ndk.so',
@@ -231,13 +320,24 @@ blob_fixups: blob_fixups_user_type = {
             'android.hardware.audio.effect-V3-ndk.so'
     ),
 
+    'vendor/lib64/hw/libaudioeffecthal.qti.so': blob_fixup()
+        .replace_needed(
+            'android.media.audio.common.types-V6-ndk.so',
+            'android.media.audio.common.types-V3-ndk.so'
+        )
+        .replace_needed(
+            'libtinyxml2.so',
+            'libtinyxml2-v34.so'
+    ),
+
     (
-        'vendor/lib64/soundfx/libbundleaidl.so',
-        'vendor/lib64/libaudioserviceexampleimpl.so',
+        'vendor/lib64/libVoiceSdk.so',
+        'vendor/lib64/libcapiv2uvvendor.so',
+        'vendor/lib64/liblistensoundmodel2vendor.so'
     ): blob_fixup()
         .replace_needed(
-            'libaudio_aidl_conversion_common_ndk.so',
-            'libaudio_aidl_conversion_common_ndk_prebuilt.so'
+            'libtensorflowlite_c.so',
+            'libtensorflowlite_c_vendor.so'
     ),
 
     'vendor/lib64/libaudioserviceexampleimpl.so': blob_fixup()
@@ -253,17 +353,66 @@ blob_fixups: blob_fixups_user_type = {
         .replace_needed(
             'libaudio_aidl_conversion_common_ndk.so',
             'libaudio_aidl_conversion_common_ndk_prebuilt.so'
+        )
+        .replace_needed(
+            'android.media.audio.common.types-V6-ndk.so',
+            'android.media.audio.common.types-V3-ndk.so'
     ),
 
-    'vendor/lib64/android.hardware.bluetooth.audio-impl_prebuilt.so': blob_fixup()
+    'vendor/lib64/libcameraopt.so': blob_fixup()
+        .add_needed('libprocessgroup_shim.so'),
+
+    'vendor/lib64/libcom.xiaomi.grallocutils.so': blob_fixup()
+        .call(
+            blob_fixup_graphic_buffer_size,
+            [
+                '_Z21allocateGraphicBufferjjim',
+                '_Z29createGraphicBufferFromHandlejjimjPK13native_handle',
+                '_ZN12GrallocUtils19createGrallocBufferEjjimjPK13native_handleP16GrallocBufHandle',
+            ],
+        ),
+
+    'vendor/lib64/libcom.xiaomi.mawutils.so': blob_fixup()
+        .call(
+            blob_fixup_graphic_buffer_size,
+            [
+                '_ZN18MAWBufferAllocator18AllocGraphicBufferEjjijPPcRi',
+            ],
+        ),
+
+    'vendor/lib64/libgpu_tonemapper.so': blob_fixup()
+        .call(
+            blob_fixup_graphic_buffer_size,
+            [
+                '_ZN15EGLImageWrapper4wrapEPKv',
+            ],
+        ),
+
+    'vendor/lib64/libmicamera_hal_core.so': blob_fixup()
         .replace_needed(
-            'libbluetooth_audio_session_aidl.so',
-            'libbluetooth_audio_session_aidl_prebuilt.so'
+            'libtinyxml2.so',
+            'libtinyxml2-v34.so',
+        )
+        .call(
+            blob_fixup_graphic_buffer_size,
+            [
+                '_ZN5mihal11ImageBufferC2EjjimNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEE',
+                '_ZN5mihal11ImageBufferC2EjjimPK13native_handle',
+                '_ZN5mihal7SessionC2ERKNS0_10CreateInfoE',
+                '_ZN5mihal12StreamWraper14requestBuffersEjRNSt3__16vectorIPNS_18StreamBufferWraperENS1_9allocatorIS4_EEEE',
+                '_ZThn8_N5mihal12VendorCamera19getStreamByStreamIdEi',
+            ],
+        ),
+
+    'vendor/lib64/libqcodec2_core.so': blob_fixup()
+        .add_needed('libcodec2_shim.so')
+        .replace_needed(
+            'android.hardware.graphics.common-V5-ndk.so',
+            'android.hardware.graphics.common-V7-ndk.so'
     ),
 
     'vendor/lib64/libqcrilNrVoiceModule.so': blob_fixup()
         .sig_replace('a1 00 80 52 22', 'a1 00 80 52 02'),
-
     (
         'vendor/lib64/libVoiceSdk.so',
         'vendor/lib64/libcapiv2uvvendor.so',
@@ -273,7 +422,6 @@ blob_fixups: blob_fixups_user_type = {
             'libtensorflowlite_c.so',
             'libtensorflowlite_c_vendor.so'
     ),
-
     'vendor/lib64/libultrahdr_prebuilt.so': blob_fixup()
         .replace_needed(
             'libjpegdecoder.so',
@@ -284,20 +432,20 @@ blob_fixups: blob_fixups_user_type = {
             'libjpegencoder_prebuilt.so'
     ),
 
-    'vendor/lib64/libcameraopt.so': blob_fixup()
-        .add_needed('libprocessgroup_shim.so'),
-
-    'vendor/lib64/libqcodec2_core.so': blob_fixup()
-        .add_needed('libcodec2_shim.so')
-        .replace_needed(
-            'android.hardware.graphics.common-V5-ndk.so',
-            'android.hardware.graphics.common-V7-ndk.so'
-    ),
-
     'vendor/lib64/libwfdmmsrc_proprietary.so': blob_fixup()
         .replace_needed(
             'android.media.audio.common.types-V2-ndk.so',
             'android.media.audio.common.types-V3-ndk.so'
+    ),
+
+    'vendor/lib64/soundfx/libbundleaidl.so': blob_fixup()
+        .replace_needed(
+            'android.media.audio.common.types-V6-ndk.so',
+            'android.media.audio.common.types-V3-ndk.so'
+        )
+        .replace_needed(
+            'libaudio_aidl_conversion_common_ndk.so',
+            'libaudio_aidl_conversion_common_ndk_prebuilt.so'
     ),
 
     'vendor/lib64/vendor.libdpmframework.so': blob_fixup()

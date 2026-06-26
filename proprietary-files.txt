@@ -2075,6 +2075,14 @@ vendor/lib64/camera/com.qti.sensormodule.qti_tpg1_sm7750.bin
 vendor/lib64/camera/com.qti.sensormodule.qti_tpg1_sm7750_dummy.bin
 vendor/lib64/camera/com.qti.sensorsocmap.socid_map.bin
 
+# Camera sensors - CN - OS3.0.7.0.WOLCNXM
+odm/lib64/camera/com.qti.tuned.onyx_sunny_ov08f_ultra_ii.bin|8100eae78ed46894051841d3e4e00d714fb69584
+odm/lib64/camera/com.qti.tuned.onyx_sunny_ov20b40_front_ii.bin|bf925a5330a2e75aa919a9f59e71f75a1f7ad562
+odm/lib64/camera/com.qti.tuned.onyx_aac_imx882_wide_ii.bin|42b7337df3b6e81cbf247b82e375ad624ed80e0e
+odm/lib64/camera/com.qti.sensormodule.onyx_sunny_ov08f_ultra_ii.bin|50312791f789472c32fdf015a2a3fe107ad2e73c
+odm/lib64/camera/com.qti.sensormodule.onyx_sunny_ov20b40_front_ii.bin|c27c6b4dfed9f99b5d68aa3519a4948fd9fc51a0
+odm/lib64/camera/com.qti.sensormodule.onyx_aac_imx882_wide_ii.bin|a7744a5e6b25b97185495a6dc67b0fbc9a0b97a0
+
 # Charger
 vendor/bin/batterysecret
 vendor/etc/init/hw/init.batterysecret.rc
