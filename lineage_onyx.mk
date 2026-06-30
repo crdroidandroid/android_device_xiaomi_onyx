@@ -28,8 +28,8 @@ EXTRA_UDFPS_ANIMATIONS := true
 TARGET_HAS_UDFPS := true
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    BuildDesc="onyx_global-user 15 AQ3A.250226.002 OS3.0.7.0.WOLMIXM release-keys" \
-    BuildFingerprint=POCO/onyx_global/onyx:15/AQ3A.250226.002/OS3.0.7.0.WOLMIXM:user/release-keys \
+    BuildDesc="onyx_global-user 16 BP2A.250605.031.A3 16OS3.1.260526.154531468.QCPEGL.S release-keys" \
+    BuildFingerprint=POCO/onyx_global/onyx:16/16OS3.1.260526.154531468.QCPEGL.S:user/release-keys \
     DeviceName=$(PRODUCT_SYSTEM_DEVICE) \
     DeviceProduct=$(PRODUCT_SYSTEM_NAME)
 

@@ -1,4 +1,4 @@
-# All unpinned blobs below are extracted from onyx OS3.0.7.0.WOLMIXM
+# All unpinned blobs below are extracted from onyx OS3.0.302.0.WOLMIXM
 
 # ACDB
 odm/etc/acdbdata/Fluence/Fluence_acdb_cal.acdb
@@ -1703,6 +1703,7 @@ vendor/lib64/libcom.xiaomi.debug.so
 vendor/lib64/libcom.xiaomi.ecoenginemonitor.so
 vendor/lib64/libcom.xiaomi.eventcallback.so
 vendor/lib64/libcom.xiaomi.grallocutils.so
+vendor/lib64/libcom.xiaomi.ionutils.so
 vendor/lib64/libcom.xiaomi.mawutils.so
 vendor/lib64/libcom.xiaomi.mawutilsold.so
 vendor/lib64/libcom.xiaomi.metadatautils.so

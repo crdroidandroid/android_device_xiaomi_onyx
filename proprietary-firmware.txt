@@ -1,4 +1,4 @@
-# All unpinned firmware below are extracted from onyx OS3.0.7.0.WOLMIXM
+# All unpinned firmware below are extracted from onyx OS3.0.302.0.WOLMIXM
 
 abl.img;AB
 aop.img;AB
