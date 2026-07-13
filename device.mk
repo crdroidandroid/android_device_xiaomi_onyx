@@ -515,6 +515,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/xiaomi/onyx/init.termux_fix.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.termux_fix.rc
 
+# Game Turbo
+$(call inherit-product-if-exists, packages/apps/NotGameTurbo/notgameturbo.mk)
+
 # Vendor
 $(call inherit-product, vendor/xiaomi/onyx/onyx-vendor.mk)
 
