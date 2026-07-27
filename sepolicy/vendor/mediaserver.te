@@ -1,0 +1,1 @@
+allow mediaserver vendor_mediacodec_xiaomi_service:service_manager find;

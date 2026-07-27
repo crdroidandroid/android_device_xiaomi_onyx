@@ -1,1 +1,4 @@
 get_prop(mediacodec, graphics_config_prop)
+type vendor_mediacodec_xiaomi_service, service_manager_type;
+
+allow mediacodec vendor_mediacodec_xiaomi_service:service_manager { add find };

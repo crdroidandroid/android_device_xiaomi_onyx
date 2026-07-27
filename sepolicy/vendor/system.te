@@ -1,3 +1,6 @@
 binder_call(system_server, hal_touchfeature_xiaomi_default)
 
 allow system_server hal_touchfeature_xiaomi_default:process signal;
+allow system_server vendor_mediacodec_xiaomi_service:service_manager find;
+allow platform_app vendor_mediacodec_xiaomi_service:service_manager find;
+allow mediaprovider vendor_mediacodec_xiaomi_service:service_manager find;
