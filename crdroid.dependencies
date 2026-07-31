@@ -25,6 +25,10 @@
     "remote": "crdroid-gitlab"
   },
   {
+    "repository": "crdroidandroid/android_packages_apps_NotGameTurbo",
+    "target_path": "packages/apps/NotGameTurbo"
+  },
+  {
     "repository": "crdroidandroid/android_packages_apps_LunarisDolby",
     "target_path": "packages/apps/LunarisDolby"
   },
