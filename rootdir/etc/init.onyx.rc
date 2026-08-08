@@ -1,0 +1,264 @@
+#
+# SPDX-FileCopyrightText: The LineageOS Project
+# SPDX-License-Identifier: Apache-2.0
+#
+
+import /vendor/etc/init/hw/init.batterysecret.rc
+import /vendor/etc/init/hw/init.mi_thermald.rc
+
+on early-init
+    export ADSP_LIBRARY_PATH /odm/lib/rfsa/adsp;/vendor/lib/rfsa/adsp/;/system/lib/rfsa/adsp;/system/vendor/lib/rfsa/adsp;/dsp
+    # set tcp_mtu_probing to 1
+    write /proc/sys/net/ipv4/tcp_mtu_probing 1
+
+on init
+    # Initial uhid
+    chmod 0666 /dev/uhid
+
+on early-boot
+    # Modem
+    mkdir /data/vendor/modem 0777 root root
+    mkdir /data/vendor/modem/diag_logs 0777 root root
+
+    # Wait (1 second at most) for 'fs_ready' entry to be created
+    wait /sys/kernel/cnss/fs_ready 1
+    # Enable WLAN cold boot calibration
+    write /sys/kernel/cnss/fs_ready 1
+
+    # Fingerprint
+    chown system graphics /sys/bus/platform/devices/soc:xiaomi_fingerprint/fingerdown
+    chmod 0664 /sys/bus/platform/devices/soc:xiaomi_fingerprint/fingerdown
+
+on fs
+    restorecon_recursive /mnt/rescue
+
+on boot
+    setprop persist.bluetooth.a2dp_offload.disabled false
+
+    # Create persist for camera calibration data
+    mkdir /mnt/vendor/persist/camera 0755 system cameraserver
+    # XIAOMI ADD: enableForceFullRecoveryForCRC
+    chmod 0666 /sys/csiphy_umd_paras/csiphy_umd_paras
+    # END: enableForceFullRecoveryForCRC
+
+    #MIUI ADD:Thermal_NodeReq
+    chown system system /sys/class/thermal/thermal_message/sconfig
+    chown system system /sys/class/thermal/thermal_message/balance_mode
+    chown cameraserver cameraserver /sys/class/thermal/thermal_message/torch_real_level
+    chown cameraserver cameraserver /sys/class/thermal/thermal_message/flash_state
+    chown system system /sys/class/thermal/thermal_message/charger_temp
+    chown system system /sys/class/thermal/power_save/powersave_mode
+    chown system system /sys/class/thermal/power_save/power_level
+    chown system system /sys/class/thermal/thermal_message/board_sensor_temp_comp
+    chown system system /sys/class/thermal/thermal_message/cpu_nolimit_temp
+    #END Thermal_NodeReq
+
+    # Xiaomi touch
+    chown system system /sys/class/touch/touch_dev/fod_longpress_gesture_enabled
+    chmod 0660 /sys/class/touch/touch_dev/fod_longpress_gesture_enabled
+
+    # Fingerprint
+    chmod 0666 /dev/xiaomi-fp
+    chown system system /dev/xiaomi-fp
+    chmod 0666 /dev/mifp_id
+    chown system system /dev/mifp_id
+    chmod 0666 /dev/input/event2
+    chown system system /sys/bus/platform/devices/soc:xiaomi_fingerprint/intr2
+    chmod 0666 /sys/bus/platform/devices/soc:xiaomi_fingerprint/intr2
+
+on charger
+    chown system system /sys/class/backlight/panel0-backlight/brightness
+    write /sys/devices/system/cpu/qcom_lpm/parameters/sleep_disabled n
+    write /sys/bus/platform/devices/1d84000.ufshc/clkscale_enable 1
+    write /sys/bus/platform/devices/1d84000.ufshc/auto_hibern8 5000
+    write /sys/bus/platform/devices/1d84000.ufshc/clkgate_enable 1
+
+on post-fs-data
+    chmod 0666 /sys/class/thermal/thermal_message/boost
+    restorecon /sys/class/thermal/thermal_message/boost
+    chmod 0666 /sys/devices/system/cpu/cpufreq/policy0/scaling_governor
+    restorecon /sys/devices/system/cpu/cpufreq/policy0/scaling_governor
+
+    # Camera
+    mkdir /data/vendor/camera 0777 camera camera
+    mkdir /data/vendor/camera/offlinelog 0777 cameraserver audio
+    mkdir /data/vendor/camera/aftersalelog 0777 cameraserver audio
+    # MIUI ADD: Camera_PerformanceEnhance
+    mkdir /data/vendor/camera/overlay 0777 cameraserver audio
+    # END Camera_PerformanceEnhance
+    # MIUI ADD: Camera_CameraSkyNet
+    chmod 0666 /dev/camlog
+    #END Camera_CameraSkyNet
+
+    #Create folder of memory
+    mkdir /data/vendor/memory 0777 system system
+    mkdir /data/vendor/memory/error_history 0777 system system
+    mkdir /data/vendor/ssrdump 0777 root system
+    mkdir /data/vendor/ramdump 0777 root system
+
+    # Create directory used by video subsystem
+    mkdir /data/vendor/video 0777 audio audio
+    write /data/vendor/video/videohalPid 0
+    chown audio audio /data/vendor/video/videohalPid
+    chmod 0777 /data/vendor/video/videohalPid
+    write /data/vendor/video/vppservicePid 0
+    chown audio audio /data/vendor/video/vppservicePid
+    chmod 0777 /data/vendor/video/vppservicePid
+
+    # Create the directory used by qrtr-lookup
+    mkdir /data/vendor/qrtr 0775 system system
+
+    # add wlan log output path
+    mkdir /data/vendor/wlan_logs 0777 root shell
+    # use nv mac
+    mkdir /data/vendor/mac_addr 0770 system wifi
+    mkdir /mnt/vendor/persist/wlan 0770 system wifi
+
+    # Fingerprint
+    mkdir /data/vendor/misc 01771 system system
+    mkdir /data/vendor/misc/mi_fp 0770 system system
+    mkdir /persist/mi_fp 0770 system system
+    mkdir /mnt/vendor/persist/mi_fp 0770 system system
+    mkdir /data/vendor/fpc 0770 system system
+    mkdir /data/vendor/fpdump 0770 system system
+    mkdir /data/vendor/goodix 0770 system system
+    mkdir /data/vendor/fpdata 0770 system system
+    mkdir /data/vendor/fingerprint 0770 system system
+    mkdir /mnt/vendor/persist/goodix 0770 system system
+    mkdir /mnt/vendor/persist/fingerprint 0770 system system
+    mkdir /data/vendor/fpdump/qfs4008 0770 system system
+    mkdir /mnt/vendor/persist/fingerprint/meta 0770 system system
+    mkdir /mnt/vendor/persist/fingerprint/jiiov 0770 system system
+
+    # Display feature sysfs node
+    chown system system /sys/class/mi_display/disp-DSI-0/disp_param
+    chmod 0664 /sys/class/mi_display/disp-DSI-0/disp_param
+    chown system system /sys/class/mi_display/disp-DSI-0/mipi_rw
+    chmod 0664 /sys/class/mi_display/disp-DSI-0/mipi_rw
+    chown system system /sys/class/mi_display/disp-DSI-0/panel_info
+    chmod 0444 /sys/class/mi_display/disp-DSI-0/panel_info
+    chown system system /sys/class/mi_display/disp-DSI-0/wp_info
+    chmod 0444 /sys/class/mi_display/disp-DSI-0/wp_info
+    chown system system /sys/class/mi_display/disp-DSI-0/dynamic_fps
+    chmod 0444 /sys/class/mi_display/disp-DSI-0/dynamic_fps
+    chown system system /sys/class/mi_display/disp-DSI-0/doze_brightness
+    chmod 0664 /sys/class/mi_display/disp-DSI-0/doze_brightness
+
+    # thermal config path
+    mkdir /data/vendor/thermal 0771 root system
+    mkdir /data/vendor/thermal/config 0771 root system
+    chmod 0666 /sys/class/thermal/thermal_message/boost
+    restorecon /sys/class/thermal/thermal_message/boost
+
+    # add torch node for cit && mmi
+    chown system system /sys/class/leds/led:torch_0/brightness
+    chown system system /sys/class/leds/led:torch_1/brightness
+    chown system system /sys/class/leds/led:torch_2/brightness
+    chown system system /sys/class/leds/led:torch_3/brightness
+    chown system system /sys/class/leds/led:flash_0/brightness
+    chown system system /sys/class/leds/led:flash_1/brightness
+    chown system system /sys/class/leds/led:flash_2/brightness
+    chown system system /sys/class/leds/led:flash_3/brightness
+    chown system system /sys/class/leds/led:switch_0/brightness
+    chown system system /sys/class/leds/led:switch_1/brightness
+    chown system system /sys/class/leds/led:switch_2/brightness
+    chown system system /sys/class/leds/led:switch_3/brightness
+    chown system system /sys/class/leds/led:switch_0/trigger
+    chown system system /sys/class/leds/led:switch_1/trigger
+    chown system system /sys/class/leds/led:switch_2/trigger
+    chown system system /sys/class/leds/led:switch_3/trigger
+    chown system system /sys/class/leds/flashlight/brightness
+
+    chmod 0664 /sys/class/leds/led:torch_0/brightness
+    chmod 0664 /sys/class/leds/led:torch_1/brightness
+    chmod 0664 /sys/class/leds/led:torch_2/brightness
+    chmod 0664 /sys/class/leds/led:torch_3/brightness
+    chmod 0664 /sys/class/leds/led:flash_0/brightness
+    chmod 0664 /sys/class/leds/led:flash_1/brightness
+    chmod 0664 /sys/class/leds/led:flash_2/brightness
+    chmod 0664 /sys/class/leds/led:flash_3/brightness
+    chmod 0664 /sys/class/leds/led:switch_0/brightness
+    chmod 0664 /sys/class/leds/led:switch_1/brightness
+    chmod 0664 /sys/class/leds/led:switch_2/brightness
+    chmod 0664 /sys/class/leds/led:switch_3/brightness
+    chmod 0664 /sys/class/leds/led:switch_0/trigger
+    chmod 0664 /sys/class/leds/led:switch_1/trigger
+    chmod 0664 /sys/class/leds/led:switch_2/trigger
+    chmod 0664 /sys/class/leds/led:switch_3/trigger
+    chmod 0664 /sys/class/leds/flashlight/brightness
+
+    #QCC mode configuration
+    setprop vendor.qti.qcc.oper.mode 4
+
+    chmod 0662 /dev/miev
+    restorecon /dev/miev
+
+on property:dev.bootcomplete=1
+    chown system system /sys/class/xm_power/charger/smart_charge/smart_night
+    chmod 0660 /sys/class/xm_power/charger/smart_charge/smart_night
+
+# Enable WLAN SSR recovery
+on property:persist.vendor.ssr.restart_level=ALL_ENABLE
+    write /sys/kernel/cnss/recovery 3
+    write /sys/devices/platform/soc/97000000.remoteproc-wpss/remoteproc/remoteproc3/recovery enabled
+
+# Disable WLAN SSR recovery
+on property:persist.vendor.ssr.restart_level=ALL_DISABLE
+    write /sys/kernel/cnss/recovery 0
+
+on property:sys.boot_completed=1
+    write /dev/kmsg "start qrtr-lookup after Boot completed "
+    start qrtr-lookup
+
+    # Set thermal mode to mgame
+    write /sys/devices/virtual/thermal/thermal_message/sconfig 19
+
+    # for online boot cpu
+    wait /sys/class/thermal/thermal_message/boot_complete
+    write /sys/class/thermal/thermal_message/boot_complete 2
+
+    # Enable PowerHAL hint processing
+    setprop vendor.powerhal.init 1
+
+service cnss-daemon /system/vendor/bin/cnss-daemon -n -l --max_file_count 3 --max_file_size 20
+
+service loc_launcher /system/vendor/bin/loc_launcher
+    class late_start
+    user gps
+    group gps
+
+service qrtr-lookup /vendor/bin/qrtr-lookup
+    class core
+    user system
+    group system
+    disabled
+    oneshot
+
+service vendor.nv_mac /vendor/bin/nv_mac
+    class late_start
+    user system
+    group system inet net_admin wifi net_raw
+
+service vendor.sensors-hal-multihal /vendor/bin/hw/android.hardware.sensors-service.xiaomi-multihal
+    override
+    class hal
+    user system
+    group system wakelock context_hub input uhid
+    task_profiles ServiceCapacityLow
+    socket audio_us_socket_1 seqpacket 0666 system system
+    capabilities BLOCK_SUSPEND
+    rlimit rtprio 10 10
+
+service vendor.audio-hal-aidl /vendor/bin/hw/audiohalservice.qti
+    override
+    class hal
+    user audioserver
+    group audio media mediadrm drmrpc inet net_bt net_bt_admin net_bw_acct wakelock context_hub oem_2901 oem_2912
+    capabilities BLOCK_SUSPEND SYS_NICE
+    # setting RLIMIT_RTPRIO allows binder RT priority inheritance
+    rlimit rtprio 10 10
+    ioprio rt 4
+    task_profiles ProcessCapacityHigh HighPerformance
+    writepid /dev/cpuset/foreground/tasks /dev/stune/foreground/tasks
+    socket audio_us_socket_0 seqpacket 0666 system system
+    onrestart restart audioserver

@@ -1,0 +1,17 @@
+#
+# SPDX-FileCopyrightText: The LineageOS Project
+# SPDX-License-Identifier: Apache-2.0
+#
+
+firmware_directories /vendor/modem_firmware/image/
+
+# xiaomi display feature
+subsystem mi_display
+    devname uevent_devpath
+    dirname /dev/mi_display
+
+/dev/mi_display/*         0666   root       graphics
+
+# USB
+/sys/class/typec/port0		data_role	0660	system	system
+/sys/class/typec/port0		power_role	0660	system	system

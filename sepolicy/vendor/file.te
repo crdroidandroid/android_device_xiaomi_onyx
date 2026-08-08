@@ -27,9 +27,6 @@ type sysfs_tp_fodstatus, fs_type, sysfs_type;
 # Info
 type vendor_sysfs_hardwareinfo, fs_type, sysfs_type;
 
-# IR
-type ir_spi_device, dev_type;
-
 # Metis/Migt
 type migt_dev, dev_type, mlstrustedobject;
 type sysfs_migt, fs_type, sysfs_type;

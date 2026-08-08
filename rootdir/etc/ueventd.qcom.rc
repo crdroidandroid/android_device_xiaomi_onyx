@@ -61,13 +61,12 @@
 
 #Import rc file
 import /vendor/etc/ueventd.qcom.userdebug.rc
-import /vendor/etc/fw_dir.ueventd.qcom.rc
 
 
 # Firmware directory Path
 # Below macro will be read by uevent and path will
 # be added to search path for firmware loading
-# firmware_directories /vendor/firmware_mnt/image/ /vendor/modem_firmware/image/
+firmware_directories /vendor/firmware_mnt/image/
 
 subsystem dma_heap
     devname uevent_devpath
@@ -444,6 +443,7 @@ subsystem mem_buf_vm
 /dev/block/platform/soc/4744000.sdhci/by-name/frp       0600   system     system
 /dev/block/platform/soc/4804000.ufshc/by-name/frp       0600   system     system
 /dev/block/platform/soc/1bf8000.pcie/by-name/frp        0600   system     system
+/dev/block/platform/soc/f44000.sdhci/by-name/frp        0600   system     system
 
 # This is temporary while using SD card for initial bring-up
 /dev/block/platform/soc/8804000.sdhci/by-name/frp       0600   system     system
@@ -485,8 +485,8 @@ subsystem mem_buf_vm
 /sys/class/dual_role_usb/*	power_role	0660	system	system
 /sys/class/dual_role_usb/*	mode		0660	system	system
 
-/sys/class/typec/port0		data_role	0660	system	system
-/sys/class/typec/port0		power_role	0660	system	system
+/sys/class/typec/port0		data_role	0660	system	usb
+/sys/class/typec/port0		power_role	0660	system	usb
 /sys/class/typec/port0		port_type	0660	system	usb
 /sys/class/typec/port0-partner	accessory_mode	0440	system	usb
 

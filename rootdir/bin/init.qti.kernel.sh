@@ -1,4 +1,10 @@
-# Copyright (c) 2017-2018,2020-2021 The Linux Foundation. All rights reserved.
+#! /vendor/bin/sh
+#=============================================================================
+# Copyright (c) 2019-2020, 2023 Qualcomm Technologies, Inc.
+# All Rights Reserved.
+# Confidential and Proprietary - Qualcomm Technologies, Inc.
+#
+# Copyright (c) 2009-2012, 2014-2019, The Linux Foundation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -23,41 +29,12 @@
 # WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
 # OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-#
+#=============================================================================
 
-on init
-    write /sys/class/backlight/panel0-backlight/brightness 200
-    setprop sys.usb.configfs 1
-
-on property:ro.boot.usbcontroller=*
-    setprop sys.usb.controller ${ro.boot.usbcontroller}
-    wait /sys/bus/platform/devices/${ro.boot.usb.dwc3_msm:-a600000.ssusb}/mode
-    write /sys/bus/platform/devices/${ro.boot.usb.dwc3_msm:-a600000.ssusb}/mode peripheral
-    wait /sys/class/udc/${ro.boot.usbcontroller} 1
-
-on fs
-    wait /dev/block/platform/soc/${ro.boot.bootdevice}
-    symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
-
-    # Load ADSP firmware for PMIC
-    mkdir /firmware
-    mount vfat /dev/block/bootdevice/by-name/modem${ro.boot.slot_suffix} /firmware ro context=u:object_r:firmware_file:s0
-    wait /sys/kernel/boot_adsp/ssr
-    write /sys/kernel/boot_adsp/ssr 1
-    wait /sys/class/power_supply/battery
-
-    # Touch report
-    start touch_report
-
-on property:dev.mnt.blk.firmware=*
-    write /sys/kernel/boot_adsp/boot 1
-
-service touch_report /vendor/bin/touch_report_debug
-    class hal
-    user root
-    group root uhid input
-    capabilities SYS_NICE
-    ioprio rt 4
-    setenv LD_LIBRARY_PATH /odm/lib64:/vendor/lib64:/system/lib64
-    disabled
-    seclabel u:r:recovery:s0
+start_msm_irqbalance()
+{
+         if [ -f /vendor/bin/msm_irqbalance ]; then
+                start vendor.msm_irqbalance
+         fi
+}
+start_msm_irqbalance

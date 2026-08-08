@@ -94,8 +94,6 @@
 # HypSys
 /vendor/bin/hw/xiaomi\.system\.hypsys\.common-service-dummy    u:object_r:hal_hypsys_vendor_exec:s0
 
-# IR
-/dev/ir_spi u:object_r:ir_spi_device:s0
 
 # Media
 /vendor/bin/hw/android\.hardware\.media\.c2-mi-service u:object_r:mediacodec_exec:s0

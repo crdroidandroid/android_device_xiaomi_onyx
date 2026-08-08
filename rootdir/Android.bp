@@ -59,11 +59,10 @@ sh_binary {
 }
 
 sh_binary {
-    name: "init.qcrild.sh",
-    src: "bin/init.qcrild.sh",
+    name: "init.qti.kernel.sh",
+    src: "bin/init.qti.kernel.sh",
     vendor: true,
 }
-
 prebuilt_etc {
     name: "charger_fw_fstab.qti",
     src: "etc/charger_fw_fstab.qti",
@@ -77,21 +76,22 @@ prebuilt_etc {
 }
 
 prebuilt_etc {
-    name: "fw_dir.ueventd.qcom.rc",
-    src: "etc/fw_dir.ueventd.qcom.rc",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "init.qcom.factory.rc",
-    src: "etc/init.qcom.factory.rc",
+    name: "init.qcom.rc",
+    src: "etc/init.qcom.rc",
     sub_dir: "init/hw",
     vendor: true,
 }
 
 prebuilt_etc {
-    name: "init.qcom.rc",
-    src: "etc/init.qcom.rc",
+    name: "init.onyx.rc",
+    src: "etc/init.onyx.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "init.qti.kernel.rc",
+    src: "etc/init.qti.kernel.rc",
     sub_dir: "init/hw",
     vendor: true,
 }
@@ -114,6 +114,12 @@ prebuilt_etc {
     name: "ueventd-odm.rc",
     filename: "ueventd.rc",
     src: "etc/ueventd-odm.rc",
+    device_specific: true,
+}
+
+prebuilt_etc {
+    name: "ueventd-odm-onyx.rc",
+    src: "etc/ueventd-odm-onyx.rc",
     device_specific: true,
 }
 
