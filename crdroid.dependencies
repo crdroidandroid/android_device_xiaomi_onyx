@@ -4,8 +4,16 @@
     "target_path": "hardware/xiaomi"
   },
   {
-    "repository": "crdroidandroid/android_kernel_xiaomi_onyx",
-    "target_path": "device/xiaomi/onyx-kernel"
+    "repository": "crdroidandroid/android_kernel_xiaomi_sm8735",
+    "target_path": "kernel/xiaomi/sm8735"
+  },
+  {
+    "repository": "crdroidandroid/android_kernel_xiaomi_sm8735-devicetrees",
+    "target_path": "kernel/xiaomi/sm8735-devicetrees"
+  },
+  {
+    "repository": "crdroidandroid/android_kernel_xiaomi_sm8735-modules",
+    "target_path": "kernel/xiaomi/sm8735-modules"
   },
   {
     "repository": "crdroidandroid/proprietary_vendor_xiaomi_onyx",
