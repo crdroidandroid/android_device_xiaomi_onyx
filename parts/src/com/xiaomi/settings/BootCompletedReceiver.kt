@@ -8,7 +8,10 @@ package com.xiaomi.settings
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.os.IBinder;
 import android.util.Log
+import android.view.Display.HdrCapabilities;
+import android.view.SurfaceControl;
 import com.xiaomi.settings.display.ColorService
 
 class BootCompletedReceiver : BroadcastReceiver() {
@@ -19,6 +22,18 @@ class BootCompletedReceiver : BroadcastReceiver() {
             Intent.ACTION_BOOT_COMPLETED -> onBootCompleted(context)
             Intent.ACTION_LOCKED_BOOT_COMPLETED -> onLockedBootCompleted(context)
         }
+
+        // Override HDR types
+        val displayToken = SurfaceControl.getInternalDisplayToken()
+        SurfaceControl.overrideHdrTypes(
+            displayToken,
+            intArrayOf(
+                HdrCapabilities.HDR_TYPE_DOLBY_VISION,
+                HdrCapabilities.HDR_TYPE_HDR10,
+                HdrCapabilities.HDR_TYPE_HLG,
+                HdrCapabilities.HDR_TYPE_HDR10_PLUS
+            )
+        )
     }
 
     private fun onBootCompleted(context: Context) {
