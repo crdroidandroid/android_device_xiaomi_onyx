@@ -1,5 +1,6 @@
 # Audio
 type audio_socket, file_type;
+type hal_seaaudio_default_exec, exec_type, vendor_file_type, file_type;
 
 # Battery
 type vendor_sysfs_qcom_battery, fs_type, sysfs_type;

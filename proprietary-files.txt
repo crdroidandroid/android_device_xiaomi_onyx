@@ -60,6 +60,8 @@ vendor/lib/rfsa/adsp/nearby.napp_header
 vendor/lib/rfsa/adsp/nearby.so
 
 # Audio
+odm/bin/hw/vendor.xiaomi.hardware.seaaudio-service
+odm/etc/TcnRecordmodel_8735_w8a16pcq_qnn2_29_0_nhwc.minn
 odm/etc/audio/mis_head.bin
 odm/etc/audio/mis_head_spatial.bin
 odm/etc/audio/mis_spk.bin
@@ -69,6 +71,8 @@ odm/etc/audio/misound_karaokemix_res.bin
 odm/etc/audio/misoundsa_spk_config.bin
 odm/etc/init/init.awinic.rc
 odm/etc/init/init.cirrus.rc
+odm/etc/init/vendor.xiaomi.hardware.seaaudio.rc
+odm/etc/vintf/manifest/vendor.xiaomi.hardware.seaaudio.xml
 odm/lib64/libaudioroute_ext.so
 odm/lib64/libawcal.so
 odm/lib64/libcrussp.so
@@ -76,6 +80,7 @@ odm/lib64/libsiaalgocal.so
 odm/lib64/libtfacal.so
 odm/lib64/libwindns.so
 odm/lib64/vendor.xiaomi.hardware.mediaeventgatherservice-V1-ndk.so
+odm/lib64/vendor.xiaomi.hardware.seaaudio-V1-ndk.so
 vendor/etc/audio_cloud_control_white_list.xml
 vendor/etc/models/acd/environment.eai
 vendor/etc/models/acd/event.eai
@@ -1650,6 +1655,7 @@ vendor/lib64/libIMTCppAlgos.so
 vendor/lib64/libITT.so
 vendor/lib64/libMiMotion.so
 vendor/lib64/libMiPhotoFilter.so
+vendor/lib64/libRecordCNN.so
 vendor/lib64/libPlatformValidatorShared.so
 vendor/lib64/libSNPE.so
 vendor/lib64/libSNPESample.so

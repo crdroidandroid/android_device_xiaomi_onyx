@@ -28,6 +28,8 @@ ro.vendor.audio.meeting.mode.type=2
 ro.vendor.audio.meeting.mode=true
 ro.vendor.audio.onetrack.xiaoai.firstevent.support=false
 ro.vendor.audio.product.sleepmonitor.config=true
+ro.vendor.audio.seaaudio.model=true
+ro.vendor.seaaudio.model=/odm/etc/TcnRecordmodel_8735_w8a16pcq_qnn2_29_0_nhwc.minn
 ro.vendor.audio.sixth.monitor=true
 
 vendor.audio.cpu.sched.cpus=8
