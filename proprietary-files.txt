@@ -162,17 +162,7 @@ vendor/lib64/libagmmixer.so
 vendor/lib64/libmisight.so
 
 # Audio soundfx
-vendor/lib64/soundfx/libbundleaidl.so;DISABLE_DEPS
-vendor/lib64/soundfx/libdownmixaidl.so;DISABLE_DEPS
-vendor/lib64/soundfx/libdynamicsprocessingaidl.so;DISABLE_DEPS
-vendor/lib64/soundfx/libloudnessenhanceraidl.so;DISABLE_DEPS
-vendor/lib64/soundfx/libqcompostprocbundle.so;DISABLE_DEPS
-vendor/lib64/soundfx/libqcomvisualizer.so;DISABLE_DEPS
-vendor/lib64/soundfx/libqcomvoiceprocessing.so;DISABLE_DEPS
-vendor/lib64/soundfx/libquasar.so;DISABLE_DEPS
-vendor/lib64/soundfx/libreverbaidl.so;DISABLE_DEPS
-vendor/lib64/soundfx/libvisualizeraidl.so;DISABLE_DEPS
-vendor/lib64/soundfx/libvolumelistener.so;DISABLE_DEPS
+vendor/lib64/soundfx/libquasar.so
 
 # Audio soundfx (Spatializer Model)
 odm/etc/audio/hrtf5c.bin
