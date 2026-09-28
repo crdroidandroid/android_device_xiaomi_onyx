@@ -1,1 +1,4 @@
 allow nfc vendor_nfc_vendor_data_file:dir search;
+
+get_prop(hal_nfc_default, vendor_nfc_nxp_prop)
+set_prop(hal_nfc_default, vendor_nfc_nxp_prop)
