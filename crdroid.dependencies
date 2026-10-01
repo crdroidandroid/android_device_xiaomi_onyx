@@ -1,6 +1,6 @@
 [
   {
-    "repository": "crdroidandroid/android_hardware_xiaomi",
+    "repository": "crdroidandroid/android_hardware_xiaomi_peridot",
     "target_path": "hardware/xiaomi"
     "branch": "17.0",
   },
