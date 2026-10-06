@@ -1,23 +1,23 @@
 [
   {
     "repository": "crdroidandroid/android_hardware_xiaomi_peridot",
-    "target_path": "hardware/xiaomi"
-    "branch": "17.0",
+    "target_path": "hardware/xiaomi",
+    "branch": "17.0"
   },
   {
     "repository": "crdroidandroid/android_kernel_xiaomi_sm8735",
-    "target_path": "kernel/xiaomi/sm8735"
-   "branch": "17.0",
+    "target_path": "kernel/xiaomi/sm8735",
+    "branch": "17.0"
   },
   {
     "repository": "crdroidandroid/android_kernel_xiaomi_sm8735-devicetrees",
-    "target_path": "kernel/xiaomi/sm8735-devicetrees"
-     "branch": "17.0",
+    "target_path": "kernel/xiaomi/sm8735-devicetrees",
+    "branch": "17.0"
   },
   {
     "repository": "crdroidandroid/android_kernel_xiaomi_sm8735-modules",
-    "target_path": "kernel/xiaomi/sm8735-modules"
-     "branch": "17.0",
+    "target_path": "kernel/xiaomi/sm8735-modules",
+    "branch": "17.0"
   },
   {
     "repository": "crdroidandroid/proprietary_vendor_xiaomi_onyx",
@@ -28,7 +28,7 @@
   {
     "repository": "crdroidandroid/proprietary_vendor_xiaomi_miuicamera",
     "target_path": "vendor/xiaomi/onyx-miuicamera",
-    "branch": "16.0-onyx",
+    "branch": "17.0-onyx",
     "remote": "crdroid-gitlab"
   },
   {
