@@ -280,6 +280,9 @@ blob_fixups: blob_fixups_user_type = {
     'vendor/etc/sensors/hals.conf': blob_fixup()
         .regex_replace('.*vl53l8.*\n?', ''),
 
+    'vendor/etc/seccomp_policy/qesdksec.policy': blob_fixup()
+        .add_line_if_missing('lseek: 1'),
+
     'vendor/lib64/android.hardware.bluetooth.audio-impl_prebuilt.so': blob_fixup()
         .replace_needed(
             'libbluetooth_audio_session_aidl.so',
