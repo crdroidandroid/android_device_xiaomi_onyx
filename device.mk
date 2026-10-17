@@ -118,6 +118,9 @@ PRODUCT_COPY_FILES += \
 # Basic Call Recorder
 $(call inherit-product-if-exists, vendor/bcr/bcr.mk)
 
+# Face unlock
+TARGET_FACE_UNLOCK_SUPPORTED := true
+
 # Bluetooth
 PRODUCT_PACKAGES += \
     android.hardware.bluetooth.audio-impl
