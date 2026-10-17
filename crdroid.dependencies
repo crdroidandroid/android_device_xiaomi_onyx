@@ -1,6 +1,6 @@
 [
   {
-    "repository": "crdroidandroid/android_hardware_xiaomi_peridot",
+    "repository": "crdroidandroid/android_hardware_xiaomi",
     "target_path": "hardware/xiaomi",
     "branch": "17.0"
   },
@@ -36,5 +36,17 @@
     "target_path": "device/xiaomi/onyx-miuicamera",
     "branch": "17.0-onyx",
     "remote": "crdroid-gitlab"
+  },
+  {
+    "repository": "crdroidandroid/android_packages_apps_NotGameTurbo",
+    "target_path": "packages/apps/NotGameTurbo"
+  },
+  {
+    "repository": "crdroidandroid/android_packages_apps_LunarisDolby",
+    "target_path": "packages/apps/LunarisDolby"
+  },
+  {
+    "repository": "crdroidandroid/android_vendor_bcr",
+    "target_path": "vendor/bcr"
   }
 ]
